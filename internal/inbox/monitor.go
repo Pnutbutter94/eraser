@@ -37,17 +37,26 @@ type Email struct {
 	BrokerName  string // Matched broker name (if found)
 }
 
+// publicEmailDomains lists domains that should never be used for broker matching,
+// because some brokers use personal addresses on these providers.
+var publicEmailDomains = map[string]bool{
+	"gmail.com": true, "hotmail.com": true, "yahoo.com": true,
+	"outlook.com": true, "live.com": true, "aol.com": true, "icloud.com": true,
+}
+
 // NewMonitor creates a new inbox monitor
 func NewMonitor(cfg config.InboxConfig, brokerList []broker.Broker) *Monitor {
 	// Build a map of email domains to brokers for quick lookup
 	brokerMap := make(map[string]broker.Broker)
 	for _, b := range brokerList {
-		// Extract domain from broker email
+		// Extract domain from broker email — skip public providers to avoid false positives
 		if b.Email != "" {
 			parts := strings.Split(b.Email, "@")
 			if len(parts) == 2 {
 				domain := strings.ToLower(parts[1])
-				brokerMap[domain] = b
+				if !publicEmailDomains[domain] {
+					brokerMap[domain] = b
+				}
 			}
 		}
 		// Also map by website domain

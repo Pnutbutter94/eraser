@@ -266,7 +266,7 @@ func (s *Server) Start() error {
 	router := s.setupRouter()
 
 	s.httpServer = &http.Server{
-		Addr:         fmt.Sprintf("127.0.0.1:%d", s.port),
+		Addr:         fmt.Sprintf("0.0.0.0:%d", s.port),
 		Handler:      router,
 		ReadTimeout:  15 * time.Second,
 		WriteTimeout: 15 * time.Second,
@@ -385,7 +385,7 @@ func (s *Server) setupRouter() *chi.Mux {
 		csrf.HttpOnly(true),
 		csrf.SameSite(csrf.SameSiteLaxMode), // Lax mode for form submissions
 		csrf.RequestHeader("X-CSRF-Token"),  // For HTMX AJAX requests
-		csrf.TrustedOrigins([]string{"localhost", "127.0.0.1", fmt.Sprintf("localhost:%d", s.port), fmt.Sprintf("127.0.0.1:%d", s.port)}),
+		csrf.TrustedOrigins([]string{"localhost", "127.0.0.1", "192.168.1.100", fmt.Sprintf("localhost:%d", s.port), fmt.Sprintf("127.0.0.1:%d", s.port), fmt.Sprintf("192.168.1.100:%d", s.port)}),
 	)
 	r.Use(csrfMiddleware)
 

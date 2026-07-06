@@ -5119,3 +5119,39 @@ brokers:
       opt_out_url: https://www.zs.com/data-request
       region: us
       category: marketing
+    - id: zendesk-ticketing
+      name: Zendesk (broker ticketing)
+      email: noreply@zendesk.com
+      website: https://www.zendesk.com
+      region: global
+      category: marketing
+    - id: freshdesk-ticketing
+      name: Freshdesk (broker ticketing)
+      email: noreply@freshdesk.com
+      website: https://www.freshdesk.com
+      region: global
+      category: marketing
+    - id: helpscout-ticketing
+      name: HelpScout (broker ticketing)
+      email: noreply@helpscout.com
+      website: https://www.helpscout.com
+      region: global
+      category: marketing
+    - id: hubspot-ticketing
+      name: HubSpot (broker ticketing)
+      email: noreply@hubspot.com
+      website: https://www.hubspot.com
+      region: global
+      category: marketing
+    - id: salesforce-ticketing
+      name: Salesforce (broker ticketing)
+      email: noreply@salesforce.com
+      website: https://www.salesforce.com
+      region: global
+      category: marketing
+    - id: jira-service-desk
+      name: Jira Service Desk (broker ticketing)
+      email: noreply@atlassian.com
+      website: https://www.atlassian.com
+      region: global
+      category: marketing
