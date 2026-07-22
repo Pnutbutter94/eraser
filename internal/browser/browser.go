@@ -82,6 +82,18 @@ func New(cfg BrowserConfig, profile *config.Profile) (*Browser, error) {
 	// Create browser context
 	ctx, cancel := chromedp.NewContext(allocCtx)
 
+	// Warm up: force browser+target allocation against the long-lived ctx.
+	// chromedp only allocates on the first-ever Run call, using whatever
+	// context was passed to it. NavigateAndFill uses a per-form
+	// context.WithTimeout(ctx, ...); if that timeout context were the first
+	// Run call, its deferred cancel() would tear down the entire browser
+	// (see chromedp.Run docs), killing every form after the first.
+	if err := chromedp.Run(ctx); err != nil {
+		cancel()
+		allocCancel()
+		return nil, fmt.Errorf("failed to start browser: %w", err)
+	}
+
 	return &Browser{
 		allocCtx:    allocCtx,
 		allocCancel: allocCancel,
