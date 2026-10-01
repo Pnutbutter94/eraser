@@ -27,5 +27,5 @@ confirm=${confirm:-0}
 total=$((form + captcha + confirm))
 
 if [ "$total" -gt 0 ]; then
-    send_telegram "🔒 Eraser — Action Needed: $total broker(s) require manual action (forms=$form, captchas=$captcha, confirmations=$confirm). Open http://192.168.1.100:8888 to handle."
+    send_telegram "🔒 Eraser — Action Needed: $total broker(s) require manual action (forms=$form, captchas=$captcha, confirmations=$confirm). Open http://100.100.203.28:8888 to handle."
 fi
