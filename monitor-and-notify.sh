@@ -2,12 +2,8 @@
 set -euo pipefail
 cd /opt/eraser
 
-source /opt/casaserver/system-notify.env
-
 send_telegram() {
-    curl -s -X POST "https://api.telegram.org/bot${CASA_BOT_TOKEN}/sendMessage" \
-        -d chat_id="${CASA_CHAT_ID}" \
-        -d text="$1" > /dev/null
+    /opt/casaserver/scripts/send-telegram.sh "$1"
 }
 
 ./eraser monitor --once >> /opt/eraser/monitor.log 2>&1
